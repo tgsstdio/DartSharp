@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
-    using System.Text;
 
     public class TypeUtilities
     {
@@ -32,10 +30,14 @@
             if (type != null)
                 return type;
 
-            type = GetTypeFromPartialNamedAssembly(name);
+            ///
+            // Removed partial name assembly loading
+            // (https://stackoverflow.com/questions/1124964/what-should-i-use-instead-of-loadwithpartialname)
+            // (see https://blogs.msdn.microsoft.com/suzcook/2003/05/30/avoid-partial-binds/)
+            //type = GetTypeFromPartialNamedAssembly(name);
 
-            if (type != null)
-                return type;
+            //if (type != null)
+            //    return type;
 
             LoadReferencedAssemblies();
 
@@ -81,6 +83,7 @@
             return namespaces;
         }
 
+        [Obsolete]
         private static Type GetTypeFromPartialNamedAssembly(string name)
         {
             int p = name.LastIndexOf(".");
