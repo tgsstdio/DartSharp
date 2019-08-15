@@ -1,18 +1,13 @@
 ﻿namespace DartSharp.Tests
 {
     using System;
-    using System.Text;
-    using System.Collections.Generic;
-    using System.Linq;
 
     using DartSharp;
+    using NUnit.Framework;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    [TestClass]
     public class TypeUtilitiesTests
     {
-        [TestMethod]
+        [Test]
         public void GetTypeByName()
         {
             Type type = TypeUtilities.GetType("System.Int32");
@@ -21,7 +16,7 @@
             Assert.AreEqual(type, typeof(int));
         }
 
-        [TestMethod]
+        [Test]
         public void GetTypeStoredInContext()
         {
             Context context = new Context();
@@ -34,7 +29,7 @@
             Assert.AreEqual(type, typeof(int));
         }
 
-        [TestMethod]
+        [Test]
         public void GetTypeInAnotherAssembly()
         {
             Type type = TypeUtilities.GetType(new Context(), "System.Data.DataSet");
@@ -43,21 +38,20 @@
             Assert.AreEqual(type, typeof(System.Data.DataSet));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException), "Unknown Type 'Foo.Bar'")]
+        [Test]
         public void RaiseIfUnknownType()
         {
-            TypeUtilities.GetType(new Context(), "Foo.Bar");
+            Assert.Throws<InvalidOperationException>(()=> TypeUtilities.GetType(new Context(), "Foo.Bar"), "Unknown Type 'Foo.Bar'");
         }
 
-        [TestMethod]
+        [Test]
         public void AsType()
         {
             Assert.IsNotNull(TypeUtilities.AsType("System.IO.File"));
             Assert.IsNull(TypeUtilities.AsType("Foo.Bar"));
         }
 
-        [TestMethod]
+        [Test]
         public void IsNamespace()
         {
             Assert.IsTrue(TypeUtilities.IsNamespace("System"));
@@ -69,13 +63,13 @@
             Assert.IsFalse(TypeUtilities.IsNamespace("Foo.Bar"));
         }
 
-        [TestMethod]
+        [Test]
         public void GetValueFromType()
         {
             Assert.IsFalse((bool)TypeUtilities.InvokeTypeMember(typeof(System.IO.File), "Exists", new object[] { "unknown.txt" }));
         }
 
-        [TestMethod]
+        [Test]
         public void GetValueFromEnum()
         {
             Assert.AreEqual(System.UriKind.RelativeOrAbsolute, TypeUtilities.InvokeTypeMember(typeof(System.UriKind), "RelativeOrAbsolute", null));

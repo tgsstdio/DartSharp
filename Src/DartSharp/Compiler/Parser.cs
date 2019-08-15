@@ -1,13 +1,11 @@
 ﻿namespace DartSharp.Compiler
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Text;
     using DartSharp.Commands;
     using DartSharp.Expressions;
     using DartSharp.Language;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
 
     public class Parser
     {
@@ -236,7 +234,7 @@
             {
                 case TokenType.Integer:
                     return new ConstantExpression(int.Parse(token.Value, CultureInfo.InvariantCulture));
-                
+
                 case TokenType.Name:
                     string name = token.Value;
 
@@ -439,7 +437,7 @@
                 IExpression expr = this.ParseExpression();
                 if (!this.IsTypeExpression(expr))
                     throw new ParserException(string.Format("Unexpected '{0}'", token.Value));
-                
+
                 string name = this.ParseName();
                 arguments.Add(name);
 

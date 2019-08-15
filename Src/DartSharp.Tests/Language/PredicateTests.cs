@@ -1,16 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Language;
+﻿using DartSharp.Language;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Language
 {
-    [TestClass]
     public class PredicateTests
     {
-        [TestMethod]
+        [Test]
         public void IsFalse()
         {
             Assert.IsTrue(Predicates.IsFalse(null));
@@ -22,7 +17,7 @@ namespace DartSharp.Tests.Language
             Assert.IsTrue(Predicates.IsFalse(10));
         }
 
-        [TestMethod]
+        [Test]
         public void IsTrue()
         {
             Assert.IsFalse(Predicates.IsTrue(null));

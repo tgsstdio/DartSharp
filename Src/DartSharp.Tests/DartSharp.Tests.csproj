@@ -1,87 +1,18 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ACB06F2E-B7FD-4C10-A705-0B0734DDAD9D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DartSharp.Tests</RootNamespace>
-    <AssemblyName>DartSharp.Tests</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.XML" />
+    <PackageReference Include="nunit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
   </ItemGroup>
+  
   <ItemGroup>
-    <Compile Include="Commands\CompositeCommandTests.cs" />
-    <Compile Include="Commands\DefineClassCommandTests.cs" />
-    <Compile Include="Commands\ReturnCommandTests.cs" />
-    <Compile Include="Commands\DefineFunctionCommandTests.cs" />
-    <Compile Include="Commands\IfCommandTests.cs" />
-    <Compile Include="Commands\NullCommandTests.cs" />
-    <Compile Include="Commands\ExpressionCommandTests.cs" />
-    <Compile Include="Commands\SetVariableCommandTests.cs" />
-    <Compile Include="Commands\WhileCommandTests.cs" />
-    <Compile Include="Compiler\LexerTests.cs" />
-    <Compile Include="EvaluateTests.cs" />
-    <Compile Include="Expressions\ArithmeticExpressionsTests.cs" />
-    <Compile Include="Expressions\CallExpressionTests.cs" />
-    <Compile Include="Commands\DefineVariableCommandTests.cs" />
-    <Compile Include="Compiler\ParserTests.cs" />
-    <Compile Include="ContextTests.cs" />
-    <Compile Include="Expressions\ComparisonExpressionsTests.cs" />
-    <Compile Include="Expressions\ConstantExpressionTests.cs" />
-    <Compile Include="Expressions\ArrayExpressionTests.cs" />
-    <Compile Include="Expressions\DotExpressionTests.cs" />
-    <Compile Include="Expressions\VariableExpressionTests.cs" />
-    <Compile Include="Functions\PrintTests.cs" />
-    <Compile Include="Language\BaseClassTests.cs" />
-    <Compile Include="Language\BaseObjectTests.cs" />
-    <Compile Include="Language\FuncMethodTests.cs" />
-    <Compile Include="Language\PredicateTests.cs" />
-    <Compile Include="ObjectUtilitiesTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeUtilitiesTests.cs" />
+    <ProjectReference Include="..\DartSharp\DartSharp.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DartSharp\DartSharp.csproj">
-      <Project>{7C9B9F46-A6CF-4B6A-9F12-E05D475C7E9E}</Project>
-      <Name>DartSharp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Language;
+﻿using DartSharp.Language;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Language
 {
-    [TestClass]
     public class FuncMethodTests
     {
-        [TestMethod]
+        [Test]
         public void DefineAndCallFuncMethod()
         {
             IMethod method = new FuncMethod(null, (obj, context, args) => ((string)obj).Length);

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DartSharp.Language;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Language
 {
-    [TestClass]
     public class BaseClassTests
     {
-        [TestMethod]
+        [Test]
         public void ClassWithoutSuperclass()
         {
             IClass klass = new BaseClass("Object", null);
@@ -18,7 +14,7 @@ namespace DartSharp.Tests.Language
             Assert.IsNull(klass.Super);
         }
 
-        [TestMethod]
+        [Test]
         public void ClassWithSuperclass()
         {
             IClass super = new BaseClass("Object", null);
@@ -27,14 +23,14 @@ namespace DartSharp.Tests.Language
             Assert.AreEqual(super, klass.Super);
         }
 
-        [TestMethod]
+        [Test]
         public void UnknowVariableAsNullType()
         {
             IClass klass = new BaseClass("Object", null);
             Assert.IsNull(klass.GetVariableType("a"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineVariable()
         {
             IClass type = new BaseClass("int", null);
@@ -45,7 +41,7 @@ namespace DartSharp.Tests.Language
             Assert.AreEqual(type, result);
         }
 
-        [TestMethod]
+        [Test]
         public void DefineVariableAndGetVariableFromSuper()
         {
             IClass type = new BaseClass("int", null);
@@ -57,17 +53,16 @@ namespace DartSharp.Tests.Language
             Assert.AreEqual(type, result);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Test]
         public void RaiseIfVariableIsAlreadyDefined()
         {
             IClass type = new BaseClass("int", null);
             IClass klass = new BaseClass("MyClass", null);
             klass.DefineVariable("age", type);
-            klass.DefineVariable("age", type);
+            Assert.Throws<InvalidOperationException>(() => klass.DefineVariable("age", type));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineMethod()
         {
             IClass type = new BaseClass("String", null);
@@ -79,7 +74,7 @@ namespace DartSharp.Tests.Language
             Assert.AreEqual(type, result.Type);
         }
 
-        [TestMethod]
+        [Test]
         public void DefineAndGetMethodFromSuper()
         {
             IClass type = new BaseClass("String", null);
@@ -92,25 +87,24 @@ namespace DartSharp.Tests.Language
             Assert.AreEqual(type, result.Type);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Test]
         public void RaiseIfMethodIsAlreadyDefined()
         {
             IClass type = new BaseClass("String", null);
             IClass klass = new BaseClass("MyClass", null);
             IMethod getname = new FuncMethod(type, (obj, context, arguments) => ((IObject)obj).GetValue("name"));
             klass.DefineMethod("getName", getname);
-            klass.DefineMethod("getName", getname);
+            Assert.Throws< InvalidOperationException>(() => klass.DefineMethod("getName", getname));
         }
 
-        [TestMethod]
+        [Test]
         public void CreateNewInstance()
         {
             IClass klass = new BaseClass("MyClass", null);
             var result = klass.NewInstance(null);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BaseObject));
+            Assert.That(result is BaseObject);
 
             BaseObject obj = (BaseObject)result;
             Assert.AreEqual(klass, obj.Type);

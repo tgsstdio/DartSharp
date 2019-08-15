@@ -1,10 +1,7 @@
 ﻿namespace DartSharp.Expressions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using DartSharp.Language;
+    using System.Collections.Generic;
 
     public class CallExpression : IExpression
     {

@@ -1,19 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Compiler;
+﻿using DartSharp.Compiler;
 using DartSharp.Commands;
 using DartSharp.Methods;
 using System.IO;
+using NUnit.Framework;
 
 namespace DartSharp.Tests
 {
-    [TestClass]
     public class EvaluateTests
     {
-        [TestMethod]
+        [Test]
         public void EvaluatePrintCommand()
         {
             Context context = new Context();
@@ -25,7 +20,7 @@ namespace DartSharp.Tests
             Assert.AreEqual("Hello, world\r\n", writer.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleIfCommand()
         {
             Context context = new Context();
@@ -38,7 +33,7 @@ namespace DartSharp.Tests
             Assert.AreEqual("Hello, world\r\n", writer.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleReturn()
         {
             Context context = new Context();
@@ -47,7 +42,7 @@ namespace DartSharp.Tests
             Assert.AreEqual(0, context.ReturnValue.Value);
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleIfCommandWithElse()
         {
             Context context = new Context();
@@ -60,7 +55,7 @@ namespace DartSharp.Tests
             Assert.AreEqual("Hello, world\r\n", writer.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleWhile()
         {
             Context context = new Context();
@@ -69,7 +64,7 @@ namespace DartSharp.Tests
             Assert.AreEqual(10, context.GetValue("a"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleArithmeticExpressions()
         {
             Assert.AreEqual(2, EvaluateExpression("1+1", null));
@@ -79,14 +74,14 @@ namespace DartSharp.Tests
             Assert.AreEqual(10, EvaluateExpression("(2+3)*2", null));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateStringConcatenation()
         {
             Assert.AreEqual("foobar", EvaluateExpression("'foo' + 'bar'", null));
             Assert.AreEqual("foo1", EvaluateExpression("'foo' + 1", null));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateNameInStringInterpolation()
         {
             Context context = new Context();
@@ -94,7 +89,7 @@ namespace DartSharp.Tests
             Assert.AreEqual("Hello, World!", EvaluateExpression("'Hello, $name!'", context));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateNameInSimpleStringInterpolation()
         {
             Context context = new Context();
@@ -102,7 +97,7 @@ namespace DartSharp.Tests
             Assert.AreEqual("World", EvaluateExpression("'$name'", context));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateExpressionInStringInterpolation()
         {
             Context context = new Context();
@@ -110,7 +105,7 @@ namespace DartSharp.Tests
             Assert.AreEqual("Hello, WORLD!", EvaluateExpression("'Hello, ${name.ToUpper()}!'", context));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateNameAndExpressionInStringInterpolation()
         {
             Context context = new Context();
@@ -118,35 +113,31 @@ namespace DartSharp.Tests
             Assert.AreEqual("Hello, World, WORLD!", EvaluateExpression("'Hello, $name, ${name.ToUpper()}!'", context));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ParserException))]
+        [Test]
         public void RaiseIfUnclosedExpressionInInterpolation()
         {
-            EvaluateExpression("'Hello, ${name.ToUpper()!'", null);
+            Assert.Throws<ParserException>(() => EvaluateExpression("'Hello, ${name.ToUpper()!'", null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ParserException))]
+        [Test]
         public void RaiseIfNoNameInterpolation()
         {
-            EvaluateExpression("'Hello, $0!'", null);
+            Assert.Throws<ParserException>(() => EvaluateExpression("'Hello, $0!'", null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ParserException))]
+        [Test]
         public void RaiseIfNoInterpolation()
         {
-            EvaluateExpression("'Hello, $'", null);
+            Assert.Throws<ParserException>(() => EvaluateExpression("'Hello, $'", null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ParserException))]
+        [Test]
         public void RaiseIfBadExpressionInInterpolation()
         {
-            EvaluateExpression("'Hello, ${0+1 2+3}'", null);
+            Assert.Throws<ParserException>(() => EvaluateExpression("'Hello, ${0+1 2+3}'", null));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleCompareExpressions()
         {
             Assert.AreEqual(true, EvaluateExpression("1==1", null));
@@ -158,7 +149,7 @@ namespace DartSharp.Tests
             Assert.AreEqual(true, EvaluateExpression("1>=1", null));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleFunctionCall()
         {
             Context context = new Context();
@@ -166,7 +157,7 @@ namespace DartSharp.Tests
             Assert.AreEqual(1, context.GetValue("a"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleFunctionCallWithArgument()
         {
             Context context = new Context();
@@ -174,7 +165,7 @@ namespace DartSharp.Tests
             Assert.AreEqual(2, context.GetValue("a"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateSimpleDotExpressions()
         {
             Context context = new Context();
@@ -183,7 +174,7 @@ namespace DartSharp.Tests
             Assert.AreEqual("oo", EvaluateExpression("'foo'.Substring(1)", context));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineVariables()
         {
             Context context = new Context();
@@ -195,7 +186,7 @@ namespace DartSharp.Tests
             Assert.IsTrue(context.HasVariable("e"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineTypedVariable()
         {
             Context context = new Context();

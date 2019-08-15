@@ -1,16 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Compiler;
+﻿using DartSharp.Compiler;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Compiler
 {
-    [TestClass]
     public class LexerTests
     {
-        [TestMethod]
+        [Test]
         public void GetName()
         {
             Lexer lexer = new Lexer("foo");
@@ -23,7 +18,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetNameWithSpaces()
         {
             Lexer lexer = new Lexer("  foo   ");
@@ -36,7 +31,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetNameWithLineComment()
         {
             Lexer lexer = new Lexer("  foo  // Foo Variable ");
@@ -49,7 +44,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetNamesWithMultiLineComment()
         {
             Lexer lexer = new Lexer("  foo  /* Foo \r\n Variable */ bar");
@@ -68,23 +63,21 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(LexerException))]
+        [Test]
         public void RaiseIfCommentIsNotClosed()
         {
             Lexer lexer = new Lexer("/* Comment wo/end ");
-            lexer.NextToken();
+            Assert.Throws<LexerException>(() => lexer.NextToken());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(LexerException))]
+        [Test]
         public void RaiseIfCommentIsNotClosedByAMissingChar()
         {
             Lexer lexer = new Lexer("/* Comment wo/end *");
-            lexer.NextToken();
+            Assert.Throws<LexerException>(() => lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetAssignmentOperator()
         {
             Lexer lexer = new Lexer("=");
@@ -97,7 +90,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetDivideOperator()
         {
             Lexer lexer = new Lexer("/");
@@ -110,7 +103,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetEqualOperator()
         {
             Lexer lexer = new Lexer("==");
@@ -123,7 +116,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetPointSeparator()
         {
             Lexer lexer = new Lexer(".");
@@ -136,7 +129,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetInteger()
         {
             Lexer lexer = new Lexer("123");
@@ -149,7 +142,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetIntegerWithSpaces()
         {
             Lexer lexer = new Lexer("  123   ");
@@ -162,7 +155,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetSimpleString()
         {
             Lexer lexer = new Lexer("\"foo\"");
@@ -175,7 +168,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetSimpleStringSingleQuote()
         {
             Lexer lexer = new Lexer("'foo'");
@@ -188,23 +181,21 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(LexerException))]
+        [Test]
         public void RaiseUnclosedString()
         {
             Lexer lexer = new Lexer("'foo");
-            lexer.NextToken();
+            Assert.Throws<LexerException>(() => lexer.NextToken());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(LexerException))]
+        [Test]
         public void RaiseForUnknownOperator()
         {
             Lexer lexer = new Lexer("^");
-            lexer.NextToken();
+            Assert.Throws<LexerException>(() => lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetEndOfCommand()
         {
             Lexer lexer = new Lexer(";");
@@ -217,7 +208,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetCommaAsSeparator()
         {
             Lexer lexer = new Lexer(",");
@@ -230,7 +221,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetParenthesis()
         {
             Lexer lexer = new Lexer("()");
@@ -249,7 +240,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetSquareBrackets()
         {
             Lexer lexer = new Lexer("[]");
@@ -268,7 +259,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void SkipNewLine()
         {
             Lexer lexer = new Lexer("\n");
@@ -277,7 +268,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(token);
         }
 
-        [TestMethod]
+        [Test]
         public void SkipCarriageReturnNewLine()
         {
             Lexer lexer = new Lexer("\r\n");
@@ -286,7 +277,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void SkipNewLineCarriageReturn()
         {
             Lexer lexer = new Lexer("\n\r");
@@ -295,7 +286,7 @@ namespace DartSharp.Tests.Compiler
             Assert.IsNull(lexer.NextToken());
         }
 
-        [TestMethod]
+        [Test]
         public void GetSimpleAssignmentCommand()
         {
             Lexer lexer = new Lexer("a=123");

@@ -1,13 +1,7 @@
 ﻿namespace DartSharp.Commands
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using DartSharp.Expressions;
     using DartSharp.Language;
-    using DartSharp.Methods;
 
     public class WhileCommand : ICommand
     {

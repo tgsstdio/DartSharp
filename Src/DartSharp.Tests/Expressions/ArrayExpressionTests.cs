@@ -1,20 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Commands;
+﻿using System.Linq;
 using DartSharp.Expressions;
-using DartSharp.Methods;
-using System.IO;
 using System.Collections;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Expressions
 {
-    [TestClass]
     public class ArrayExpressionTests
     {
-        [TestMethod]
+        [Test]
         public void EvaluateArrayExpression()
         {
             ArrayExpression expr = new ArrayExpression(new IExpression[] { new ConstantExpression(1), new ConstantExpression(2), new ConstantExpression(3) });
@@ -25,7 +18,7 @@ namespace DartSharp.Tests.Expressions
             object result = expr.Evaluate(null);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IList));
+            Assert.That(result is IList);
 
             IList list = (IList)result;
             Assert.AreEqual(3, list.Count);

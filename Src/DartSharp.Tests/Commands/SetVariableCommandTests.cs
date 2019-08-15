@@ -1,17 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Expressions;
+﻿using DartSharp.Expressions;
 using DartSharp.Commands;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Commands
 {
-    [TestClass]
     public class SetVariableCommandTests
     {
-        [TestMethod]
+        [Test]
         public void SetVariable()
         {
             Context context = new Context();

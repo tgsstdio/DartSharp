@@ -1,19 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Commands;
+﻿using DartSharp.Commands;
 using DartSharp.Expressions;
-using DartSharp.Methods;
 using DartSharp.Language;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Commands
 {
-    [TestClass]
     public class WhileCommandTests
     {
-        [TestMethod]
+        [Test]
         public void WhileWithAddExpression()
         {
             var expression = new CompareExpression(ComparisonOperator.Less, new VariableExpression("a"), new ConstantExpression(10));

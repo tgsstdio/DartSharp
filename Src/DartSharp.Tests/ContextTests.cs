@@ -1,15 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace DartSharp.Tests
 {
-    [TestClass]
     public class ContextTests
     {
-        [TestMethod]
+        [Test]
         public void GetUndefinedValue()
         {
             Context context = new Context();
@@ -17,7 +12,7 @@ namespace DartSharp.Tests
             Assert.IsNull(context.ReturnValue);
         }
 
-        [TestMethod]
+        [Test]
         public void SetAndGetValue()
         {
             Context context = new Context();
@@ -25,7 +20,7 @@ namespace DartSharp.Tests
             Assert.AreEqual(1, context.GetValue("One"));
         }
 
-        [TestMethod]
+        [Test]
         public void SetAndGetValueWithParent()
         {
             Context parent = new Context();
@@ -35,7 +30,7 @@ namespace DartSharp.Tests
             Assert.IsNull(parent.GetValue("One"));
         }
 
-        [TestMethod]
+        [Test]
         public void GetValueFromParent()
         {
             Context parent = new Context();
@@ -44,7 +39,7 @@ namespace DartSharp.Tests
             Assert.AreEqual(1, context.GetValue("One"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineAndHasVariable()
         {
             Context context = new Context();
@@ -54,7 +49,7 @@ namespace DartSharp.Tests
             Assert.IsNull(context.GetValue("a"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineAndHasVariableInParent()
         {
             Context parent = new Context();

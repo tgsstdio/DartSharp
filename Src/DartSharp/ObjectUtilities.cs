@@ -1,12 +1,8 @@
 ﻿namespace DartSharp
 {
+    using DartSharp.Language;
     using System;
     using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
-    using DartSharp.Language;
 
     public class ObjectUtilities
     {
@@ -80,7 +76,7 @@
             ////if (obj is DynamicObject && indexes != null && indexes.Length == 1)
             ////    return ((DynamicObject)obj).GetValue((string)indexes[0]);
 
-            return GetValue(obj, string.Empty, indexes); 
+            return GetValue(obj, string.Empty, indexes);
         }
 
         public static void SetIndexedValue(object obj, object[] indexes, object value)

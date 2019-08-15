@@ -1,19 +1,15 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
 using DartSharp.Commands;
 using DartSharp.Expressions;
 using DartSharp.Methods;
 using System.IO;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Expressions
 {
-    [TestClass]
     public class CallExpressionTests
     {
-        [TestMethod]
+        [Test]
         public void ExecuteCallExpression()
         {
             StringWriter writer = new StringWriter();

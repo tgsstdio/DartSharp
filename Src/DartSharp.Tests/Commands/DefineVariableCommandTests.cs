@@ -1,17 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Expressions;
+﻿using DartSharp.Expressions;
 using DartSharp.Commands;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Commands
 {
-    [TestClass]
     public class DefineVariableCommandTests
     {
-        [TestMethod]
+        [Test]
         public void DefineVariable()
         {
             Context context = new Context();
@@ -25,7 +20,7 @@ namespace DartSharp.Tests.Commands
             Assert.IsNull(expr.Expression);
         }
 
-        [TestMethod]
+        [Test]
         public void DefineVariableWithInitialValue()
         {
             Context context = new Context();
@@ -38,7 +33,7 @@ namespace DartSharp.Tests.Commands
             Assert.IsNull(expr.TypeExpression);
         }
 
-        [TestMethod]
+        [Test]
         public void DefineVariableWithTypeAndInitialValue()
         {
             Context context = new Context();

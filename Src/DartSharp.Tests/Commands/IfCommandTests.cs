@@ -1,19 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Commands;
+﻿using DartSharp.Commands;
 using DartSharp.Expressions;
-using DartSharp.Methods;
 using DartSharp.Language;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Commands
 {
-    [TestClass]
+    [TestFixture]
     public class IfCommandTests
     {
-        [TestMethod]
+        [Test]
         public void IfTrueThen()
         {
             var condition = new CompareExpression(ComparisonOperator.Less, new VariableExpression("a"), new ConstantExpression(10));
@@ -35,7 +30,7 @@ namespace DartSharp.Tests.Commands
             Assert.AreEqual(1, context.GetValue("k"));
         }
 
-        [TestMethod]
+        [Test]
         public void IfFalseThen()
         {
             var condition = new CompareExpression(ComparisonOperator.Less, new VariableExpression("a"), new ConstantExpression(10));
@@ -57,7 +52,7 @@ namespace DartSharp.Tests.Commands
             Assert.AreEqual(0, context.GetValue("k"));
         }
 
-        [TestMethod]
+        [Test]
         public void IfTrueThenElse()
         {
             var condition = new CompareExpression(ComparisonOperator.Less, new VariableExpression("a"), new ConstantExpression(10));
@@ -80,7 +75,7 @@ namespace DartSharp.Tests.Commands
             Assert.AreEqual(1, context.GetValue("k"));
         }
 
-        [TestMethod]
+        [Test]
         public void IfFalseThenElse()
         {
             var condition = new CompareExpression(ComparisonOperator.Less, new VariableExpression("a"), new ConstantExpression(10));

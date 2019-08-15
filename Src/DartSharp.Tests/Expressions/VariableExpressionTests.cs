@@ -1,17 +1,11 @@
-﻿using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Expressions;
-using DartSharp.Commands;
-using DartSharp.Methods;
+﻿using DartSharp.Expressions;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Expressions
 {
-    [TestClass]
     public class VariableExpressionTests
     {
-        [TestMethod]
+        [Test]
         public void EvaluateUndefinedVariable()
         {
             Context context = new Context();
@@ -20,7 +14,7 @@ namespace DartSharp.Tests.Expressions
             Assert.IsNull(expr.Evaluate(context));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineVariableWithName()
         {
             Context context = new Context();
@@ -29,7 +23,7 @@ namespace DartSharp.Tests.Expressions
             Assert.AreEqual("foo", expr.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateDefinedVariable()
         {
             Context context = new Context();

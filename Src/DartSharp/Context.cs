@@ -1,10 +1,7 @@
 ﻿namespace DartSharp
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using DartSharp.Functions;
+    using System.Collections.Generic;
 
     public class Context
     {
@@ -34,7 +31,7 @@
                     return this.parent.GetValue(name);
                 else
                     return null;
-            
+
             return this.values[name];
         }
 

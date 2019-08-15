@@ -1,17 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Commands;
+﻿using DartSharp.Commands;
 using DartSharp.Language;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Commands
 {
-    [TestClass]
     public class DefineClassCommandTests
     {
-        [TestMethod]
+        [Test]
         public void CreateDefineClassCommand()
         {
             DefineClassCommand command = new DefineClassCommand("MyClass", null);
@@ -19,7 +14,7 @@ namespace DartSharp.Tests.Commands
             Assert.IsNull(command.Command);
         }
 
-        [TestMethod]
+        [Test]
         public void ExecuteDefineClassCommand()
         {
             Context context = new Context();
@@ -27,7 +22,7 @@ namespace DartSharp.Tests.Commands
             command.Execute(context);
             var result = context.GetValue("MyClass");
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IClass));
+            Assert.That(result is IClass);
 
             IClass klass = (IClass)result;
             Assert.AreEqual("MyClass", klass.Name);

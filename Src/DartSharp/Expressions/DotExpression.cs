@@ -1,10 +1,7 @@
 ﻿namespace DartSharp.Expressions
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class DotExpression : IExpression
     {
@@ -39,7 +36,7 @@
             object obj = null;
 
             if (this.type == null)
-               obj = this.expression.Evaluate(context);
+                obj = this.expression.Evaluate(context);
 
             object[] parameters = null;
 

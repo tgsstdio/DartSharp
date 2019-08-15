@@ -1,16 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Expressions;
+﻿using DartSharp.Expressions;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Expressions
 {
-    [TestClass]
     public class ConstantExpressionTests
     {
-        [TestMethod]
+        [Test]
         public void CreateAndEvaluateInteger()
         {
             ConstantExpression expr = new ConstantExpression(1);

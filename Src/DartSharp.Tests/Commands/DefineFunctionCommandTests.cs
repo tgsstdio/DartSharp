@@ -1,18 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
 using DartSharp.Commands;
 using DartSharp.Expressions;
 using DartSharp.Methods;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Commands
 {
-    [TestClass]
     public class DefineFunctionCommandTests
     {
-        [TestMethod]
+        [Test]
         public void CreateAndExecuteDefineFunctionCommand()
         {
             IEnumerable<ICommand> commands = new ICommand[] {
@@ -32,7 +28,7 @@ namespace DartSharp.Tests.Commands
             var result = context.GetValue("foo");
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(DefinedFunction));
+            Assert.That(result.GetType(), Is.EqualTo(typeof(DefinedFunction)));
 
             DefinedFunction dfunc = (DefinedFunction)result;
 

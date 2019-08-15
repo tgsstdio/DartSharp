@@ -1,17 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DartSharp.Commands;
+﻿using DartSharp.Commands;
 using DartSharp.Expressions;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Commands
 {
-    [TestClass]
     public class ExpressionCommandTests
     {
-        [TestMethod]
+        [Test]
         public void ExecuteConstantExpression()
         {
             ConstantExpression expr = new ConstantExpression(1);

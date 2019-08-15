@@ -1,10 +1,6 @@
 ﻿namespace DartSharp.Commands
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using DartSharp.Methods;
 
     public class CompositeCommand : ICommand
     {

@@ -1,10 +1,5 @@
 ﻿namespace DartSharp.Language
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     public class Predicates
     {
         public static bool IsFalse(object obj)

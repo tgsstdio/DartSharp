@@ -1,20 +1,13 @@
 ﻿namespace DartSharp.Tests
 {
     using System;
-    using System.IO;
-    using System.Text;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    using DartSharp.Commands;
     using DartSharp.Expressions;
     using DartSharp.Language;
+    using NUnit.Framework;
 
-    [TestClass]
     public class ComparisonExpressionsTests
     {
-        [TestMethod]
+        [Test]
         public void EvaluateEqualOperator()
         {
             Assert.IsTrue(EvaluateComparisonOperator(ComparisonOperator.Equal, null, null));
@@ -33,14 +26,13 @@
             Assert.IsFalse(EvaluateComparisonOperator(ComparisonOperator.Equal, "foo", "Foo"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
+        [Test]
         public void RaiseIfNotComparableObject()
         {
-            Assert.IsFalse(EvaluateComparisonOperator(ComparisonOperator.Equal, new Context(), new Context()));
+            Assert.Throws<InvalidCastException>(() => EvaluateComparisonOperator(ComparisonOperator.Equal, new Context(), new Context()));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateNotEqualOperator()
         {
             Assert.IsFalse(EvaluateComparisonOperator(ComparisonOperator.NotEqual, null, null));
@@ -59,7 +51,7 @@
             Assert.IsTrue(EvaluateComparisonOperator(ComparisonOperator.NotEqual, "foo", "Foo"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateLessOperator()
         {
             Assert.IsTrue(EvaluateComparisonOperator(ComparisonOperator.Less, 1, 2));
@@ -73,14 +65,13 @@
             Assert.IsFalse(EvaluateComparisonOperator(ComparisonOperator.Less, "foo", "bar"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
+        [Test]
         public void RaiseIfNotComparableObjectInLess()
         {
-            Assert.IsFalse(EvaluateComparisonOperator(ComparisonOperator.Less, new Context(), new Context()));
+            Assert.Throws<InvalidCastException>(() => EvaluateComparisonOperator(ComparisonOperator.Less, new Context(), new Context()));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateLessEqualOperator()
         {
             Assert.IsTrue(EvaluateComparisonOperator(ComparisonOperator.LessEqual, 1, 2));
@@ -94,7 +85,7 @@
             Assert.IsFalse(EvaluateComparisonOperator(ComparisonOperator.LessEqual, "foo", "bar"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateGreaterOperator()
         {
             Assert.IsTrue(EvaluateComparisonOperator(ComparisonOperator.Greater, 2, 1));
@@ -109,7 +100,7 @@
             Assert.IsFalse(EvaluateComparisonOperator(ComparisonOperator.Greater, 2, "3"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvaluateGreaterEqualOperator()
         {
             Assert.IsTrue(EvaluateComparisonOperator(ComparisonOperator.GreaterEqual, 2, 1));

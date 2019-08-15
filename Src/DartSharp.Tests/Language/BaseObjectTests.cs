@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DartSharp.Language;
+using NUnit.Framework;
 
 namespace DartSharp.Tests.Language
 {
-    [TestClass]
     public class BaseObjectTests
     {
         private IClass type;
 
-        [TestInitialize]
+        [SetUp]
         public void Setup()
         {
             IClass type = new BaseClass("String", null);
@@ -22,28 +18,27 @@ namespace DartSharp.Tests.Language
             this.type.DefineMethod("getName", getname);
         }
 
-        [TestMethod]
+        [Test]
         public void GetObjectType()
         {
             IObject obj = new BaseObject(this.type);
             Assert.AreEqual(this.type, obj.Type);
         }
 
-        [TestMethod]
+        [Test]
         public void GetInstanceVariableAsNull()
         {
             IObject obj = new BaseObject(type);
             Assert.IsNull(obj.GetValue("name"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void RaiseIfClassIsNull()
         {
-            new BaseObject(null);
+            Assert.Throws<ArgumentNullException>(() => new BaseObject(null));
         }
 
-        [TestMethod]
+        [Test]
         public void SetAndGetInstanceVariable()
         {
             IObject obj = new BaseObject(type);
@@ -51,23 +46,21 @@ namespace DartSharp.Tests.Language
             Assert.AreEqual("Adam", obj.GetValue("name"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Test]
         public void RaiseWhenGetUndefinedVariable()
         {
             IObject obj = new BaseObject(type);
-            obj.GetValue("length");
+            Assert.Throws<InvalidOperationException>(() => obj.GetValue("length"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Test]
         public void RaiseWhenSetUndefinedVariable()
         {
             IObject obj = new BaseObject(type);
-            obj.SetValue("length", 100);
+            Assert.Throws<InvalidOperationException>(() => obj.SetValue("length", 100));
         }
 
-        [TestMethod]
+        [Test]
         public void InvokeGetName()
         {
             IObject obj = new BaseObject(type);
@@ -75,12 +68,11 @@ namespace DartSharp.Tests.Language
             Assert.AreEqual("Adam", obj.Invoke("getName", null, null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Test]
         public void RaiseWhenInvokeUndefinedMethod()
         {
             IObject obj = new BaseObject(type);
-            obj.Invoke("getLength", null, null);
+            Assert.Throws<InvalidOperationException>(() => obj.Invoke("getLength", null, null));
         }
     }
 }

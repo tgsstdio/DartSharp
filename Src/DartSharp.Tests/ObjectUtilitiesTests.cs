@@ -1,32 +1,26 @@
 ﻿namespace DartSharp.Tests
 {
-    using System;
-    using System.Text;
     using System.Collections.Generic;
-    using System.Linq;
 
     using DartSharp;
-    using DartSharp.Language;
+    using NUnit.Framework;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    [TestClass]
     public class ObjectUtilitiesTests
     {
-        [TestMethod]
+        [Test]
         public void GetPropertyFromString()
         {
             Assert.AreEqual(3, ObjectUtilities.GetValue("foo", "Length"));
         }
 
-        [TestMethod]
+        [Test]
         public void GetValueUsingCall()
         {
             Assert.AreEqual("oo", ObjectUtilities.GetValue("foo", "Substring", new object[] { 1 }));
         }
 
         // TODO DynamicObject support?
-        //[TestMethod]
+        //[Test]
         //public void GetValueFromDynamicObject()
         //{
         //    DynamicObject dynobj = new DynamicObject();
@@ -35,7 +29,7 @@
         //    Assert.AreEqual("Adam", ObjectUtilities.GetValue(dynobj, "FirstName"));
         //}
 
-        [TestMethod]
+        [Test]
         public void IsNumber()
         {
             Assert.IsTrue(ObjectUtilities.IsNumber((byte) 1));
@@ -51,14 +45,14 @@
             Assert.IsFalse(ObjectUtilities.IsNumber(this));
         }
 
-        [TestMethod]
+        [Test]
         public void GetIndexedValuesFromArrays()
         {
             Assert.AreEqual(2, ObjectUtilities.GetIndexedValue(new int[] { 1, 2, 3 }, new object[] { 1 }));
             Assert.AreEqual(3, ObjectUtilities.GetIndexedValue(new int[,] { {1,2}, {2,3} }, new object[] { 1, 1 }));
         }
 
-        [TestMethod]
+        [Test]
         public void GetIndexedValuesFromList()
         {
             List<int> list = new List<int>();
@@ -72,7 +66,7 @@
             Assert.AreEqual(3, ObjectUtilities.GetIndexedValue(list, new object[] { 2 }));
         }
 
-        [TestMethod]
+        [Test]
         public void GetIndexedValuesFromDictionary()
         {
             Dictionary<string, int> numbers = new Dictionary<string, int>();
@@ -87,7 +81,7 @@
         }
 
         // TODO DynamicObject support?
-        //[TestMethod]
+        //[Test]
         //public void GetIndexedValuesFromDynamicObject()
         //{
         //    DynamicObject obj = new DynamicObject();
@@ -101,7 +95,7 @@
         //    Assert.IsInstanceOfType(f, typeof(Function));
         //}
 
-        [TestMethod]
+        [Test]
         public void SetIndexedValuesInArrays()
         {
             int[] array = new int[2];
@@ -113,7 +107,7 @@
             Assert.AreEqual(2, array[1]);
         }
 
-        [TestMethod]
+        [Test]
         public void SetIndexedValuesInList()
         {
             List<int> list = new List<int>();
@@ -128,7 +122,7 @@
             Assert.AreEqual(3, list[2]);
         }
 
-        [TestMethod]
+        [Test]
         public void SetIndexedValuesInDictionary()
         {
             Dictionary<string, int> dictionary = new Dictionary<string, int>();
